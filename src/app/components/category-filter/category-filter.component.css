@@ -1,0 +1,37 @@
+.categories-container {
+  padding: 1.5rem;
+  background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+
+/* Enhanced category list */
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Animated category buttons */
+.category-button {
+  padding: 0.75rem 1.25rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.category-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-button.active {
+  background: #0066cc;
+  color: white;
+  border-color: #0066cc;
+  transform: scale(1.05);
+}

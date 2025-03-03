@@ -1,0 +1,54 @@
+<div class="product-container">
+  <mat-card class="filter-card">
+    <div class="card-header">
+      <h2>Filter Products</h2>
+    </div>
+    <div class="card-content">
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select (selectionChange)="onCategoryChange($event)">
+          <mat-option [value]="">All Categories</mat-option>
+          <mat-option *ngFor="let category of categories" [value]="category">
+            {{ category }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </mat-card>
+
+  <div class="product-list">
+    <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
+    
+    <div *ngIf="!isLoading" class="products-grid">
+      <mat-card *ngFor="let product of products" class="product-card">
+        <div class="card-header">
+          <h3>{{ product.name }}</h3>
+          <p class="category">{{ product.category }}</p>
+        </div>
+        <div class="card-content">
+          <p class="price">€{{ product.price }}</p>
+          <p *ngIf="product.description" class="description">{{ product.description | slice:0:100 }}{{ product.description.length > 100 ? '...' : '' }}</p>
+          <p *ngIf="!product.description" class="no-description">No description available</p>
+        </div>
+        <div class="card-actions">
+          <button mat-button color="primary">DETAILS</button>
+          <button mat-raised-button color="primary">ADD TO CART</button>
+        </div>
+      </mat-card>
+    </div>
+    
+    <mat-paginator
+      *ngIf="!isLoading && totalItems > 0"
+      [length]="totalItems"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageIndex]="currentPage"
+      (page)="onPageChange($event)"
+      aria-label="Select page">
+    </mat-paginator>
+    
+    <div *ngIf="!isLoading && products.length === 0" class="no-products">
+      <p>No products found. Try changing your filter.</p>
+    </div>
+  </div>
+</div>
