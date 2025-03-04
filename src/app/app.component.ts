@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
+import { ProductListComponent } from "./components/product-list/product-list.component";
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterModule, ProductListComponent, HttpClientModule],
   template: `
     <div class="app-container">
       <header>
         <h1>Product Catalog</h1>
       </header>
       <main>
-        <router-outlet></router-outlet>
+        <app-product-list></app-product-list>
       </main>
       
     </div>
