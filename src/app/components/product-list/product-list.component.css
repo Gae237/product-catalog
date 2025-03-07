@@ -1,76 +1,79 @@
-.product-container {
-  display: flex;
-  flex-direction: column;
+.container {
   padding: 20px;
 }
 
-.filter-card {
+.table-card {
   margin-bottom: 20px;
 }
 
-.card-header {
-  padding: 16px 16px 0;
+/* Style for the filter and category row */
+.filter-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
-.card-header h2, .card-header h3 {
-  margin: 0;
-  margin-bottom: 8px;
+.filter-container {
+  flex: 1;
+  min-width: 300px;
 }
 
-.category {
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 14px;
+.category-filter {
+  min-width: 200px;
 }
 
-.card-content {
-  padding: 0 16px;
+/* Style for the buttons row */
+.buttons-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* Make form fields take full width of their containers */
+mat-form-field {
+  width: 100%;
+}
+
+.table-container {
+  position: relative;
+  overflow-x: auto;
   margin-bottom: 16px;
 }
 
-.card-actions {
-  padding: 8px 16px;
+table {
+  width: 100%;
+}
+
+.spinner-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
 }
 
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.product-card {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.price {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #673ab7;
-  margin: 10px 0;
-}
-
-.description {
-  color: #666;
-  height: 4.5em;
-  overflow: hidden;
-}
-
-.no-description {
-  color: #999;
-  font-style: italic;
-}
-
-.no-products {
+.empty-message {
+  padding: 20px;
   text-align: center;
-  padding: 50px;
-  font-size: 1.2rem;
-  color: #666;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.54);
 }
 
-mat-progress-spinner {
-  margin: 50px auto;
+.product-image {
+  max-width: 50px;
+  max-height: 50px;
+  object-fit: contain;
+}
+
+/* For smaller screens, make things stack better */
+@media (max-width: 768px) {
+  .filter-container, 
+  .category-filter {
+    flex: 1 1 100%;
+  }
+  
+  .buttons-row button {
+    flex: 1;
+  }
 }

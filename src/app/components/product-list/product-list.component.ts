@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product.interface';
 import { HttpClientModule } from '@angular/common/http';
@@ -36,15 +37,27 @@ import { RouterModule } from '@angular/router';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
   ],
 })
 export class ProductListComponent implements OnInit, AfterViewInit {
   // Table data source
   dataSource = new MatTableDataSource<Product>([]);
   
-  // Define the columns to display in the table
-  displayedColumns: string[] = ['id', 'title', 'price', 'category'];
+  // All possible columns that can be displayed
+  allColumns: {name: string, label: string}[] = [
+    {name: 'id', label: 'ID'},
+    {name: 'name', label: 'Product Name'},
+    {name: 'price', label: 'Price'},
+    {name: 'category', label: 'Category'},
+    {name: 'description', label: 'Description'},
+    {name: 'weight', label: 'Weight'},
+   
+  ];
+  
+  // Currently displayed columns
+  displayedColumns: string[] = ['id', 'name', 'price', 'category'];
   
   categories: string[] = [];
   selectedCategory: string = '';
@@ -52,9 +65,9 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   
   // Pagination variables
   totalItems = 0;
-  pageSize = 2000;
+  pageSize = 10;
   currentPage = 0;
-  pageSizeOptions: number[] = [10, 50, 100, 500,1000,2000];
+  pageSizeOptions: number[] = [10, 50, 100, 500, 1000, 2000];
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -174,5 +187,30 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+  }
+  
+  // Get available columns that are not currently displayed
+  getAvailableColumns(): {name: string, label: string}[] {
+    return this.allColumns.filter(col => !this.displayedColumns.includes(col.name));
+  }
+  
+  // Get currently displayed columns
+  getDisplayedColumnObjects(): {name: string, label: string}[] {
+    return this.allColumns.filter(col => this.displayedColumns.includes(col.name));
+  }
+  
+  // Add column
+  addColumn(column: string): void {
+    if (!this.displayedColumns.includes(column)) {
+      this.displayedColumns = [...this.displayedColumns, column];
+    }
+  }
+  
+  // Remove column
+  removeColumn(column: string): void {
+    // Don't allow removing the last column
+    if (this.displayedColumns.length > 1) {
+      this.displayedColumns = this.displayedColumns.filter(col => col !== column);
+    }
   }
 }
